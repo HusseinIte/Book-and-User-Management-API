@@ -104,9 +104,7 @@ class RoleService
     public function assignRolePermessions(array $data,$roleId){
         try {
             $role = Role::findOrFail($roleId);
-            foreach ($data['permission_ids'] as $id) {
-                $role->permissions()->attach($id);
-            }
+            $role->permissions()->attach($data['permission_ids']);
             Log::info("Permissions have been assigned to the role id $roleId successfully.");
         } catch (ModelNotFoundException $e) {
             Log::error("Role with id $roleId not found to assigne permissions: " . $e->getMessage());

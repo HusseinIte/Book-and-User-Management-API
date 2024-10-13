@@ -106,9 +106,7 @@ class UserService
     {
         try {
             $user = User::findOrFail($userId);
-            foreach ($data['role_ids'] as $id) {
-                $user->roles()->attach($id);
-            }
+            $user->roles()->attach($data['role_ids']);
             Log::info("Roles have been assigned to the user id $userId successfully.");
         } catch (ModelNotFoundException $e) {
             Log::error("User with id $userId not found to assigne roles: " . $e->getMessage());
